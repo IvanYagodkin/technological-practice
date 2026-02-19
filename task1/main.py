@@ -70,4 +70,8 @@ if __name__ == "__main__":
     # Запуск дополнительных тестов
     for i, test in enumerate(additional_tests):
         result = find_sum_between_max_min(test)
+<<<<<<< HEAD
         print(f"Дополнительный тест {i+1}: {test} → Сумма: {result}")
+=======
+        print(f"Дополнительный тест {i+1}: {test} → Сумма: {result}")
+>>>>>>> c2d12e6dfb223f2ddc35ebd5fe23f7652bc4037f
