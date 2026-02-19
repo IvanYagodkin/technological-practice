@@ -1,31 +1,73 @@
+# Кейс-задача №1: Работа с одномерным массивом
+# Задача: Найти сумму отрицательных элементов между максимальным и минимальным значениями
+
 def find_sum_between_max_min(arr):
+    """
+    Основная функция для поиска суммы отрицательных элементов
+    между максимальным и минимальным значениями в массиве
+    
+    Параметры:
+    arr (list): входной массив чисел
+    
+    Возвращаемое значение:
+    int: сумма отрицательных элементов между max и min
+    """
+    
+    # Проверка на пустой массив
     if not arr:
-        return 0
+        return 0  # Возвращаем 0, если массив пустой
     
-    max_value = max(arr)
-    min_value = min(arr)
+    # Поиск максимального и минимального значений
+    max_value = max(arr)  # Определяем максимальное значение в массиве
+    min_value = min(arr)  # Определяем минимальное значение в массиве
     
-    max_positions = [i for i, x in enumerate(arr) if x == max_value]
-    min_positions = [i for i, x in enumerate(arr) if x == min_value]
+    # Поиск всех позиций максимального значения
+    max_positions = [i for i, x in enumerate(arr) 
+                     if x == max_value]  # Список индексов max значений
     
-    start = min(min_positions + max_positions)
-    end = max(min_positions + max_positions)
+    # Поиск всех позиций минимального значения
+    min_positions = [i for i, x in enumerate(arr) 
+                     if x == min_value]  # Список индексов min значений
     
+    # Определение границ поиска
+    start = min(min_positions + max_positions)  # Начальная позиция
+    end = max(min_positions + max_positions)    # Конечная позиция
+    
+    # Корректировка границ, если они перепутаны
     if start > end:
-        start, end = end, start
+        start, end = end, start  # Меняем местами границы
     
-    negative_sum = sum(num for num in arr[start:end+1] if num < 0)
-    return negative_sum
+    # Подсчет суммы отрицательных элементов
+    negative_sum = sum(num for num in arr[start:end+1] 
+                       if num < 0)  # Суммируем отрицательные числа
+    
+    return negative_sum  # Возвращаем итоговую сумму
 
 if __name__ == "__main__":
+    # Набор тестовых случаев для проверки работы функции
     test_cases = [
-        [3, -1, 5, -3, 2, -4, 5, -2, 1],
-        [1, 2, 3, 4, 5],
-        [-1, -2, -3, -4, -5],
-        [5, 0, -5, 0, -3, 2],
-        [10, -5, 7, -3, 10, -2, -8, 10]
+        [3, -1, 5, -3, 2, -4, 5, -2, 1],  # Тест с разными числами
+        [1, 2, 3, 4, 5],                  # Тест с положительными числами
+        [-1, -2, -3, -4, -5],             # Тест с отрицательными числами
+        [5, 0, -5, 0, -3, 2],             # Тест с нулями
+        [10, -5, 7, -3, 10, -2, -8, 10]   # Тест с повторяющимися max
     ]
     
+    # Запуск тестов
     for i, test in enumerate(test_cases):
+        result = find_sum_between_max_min(test)  # Вызов функции
+        print(f"Тест {i+1}: {test} → Сумма: {result}")  # Вывод результата
+
+    # Дополнительные тестовые случаи
+    additional_tests = [
+        [0],  # Массив с одним элементом
+        [10, 10, 10],  # Все элементы одинаковые
+        [-10, 0, 10],  # Три разных числа
+        [-1, -2, 3, -4, 5, -6],  # Несколько отрицательных
+        [100, -1, 200, -2, 300, -3]  # Большие числа
+    ]
+    
+    # Запуск дополнительных тестов
+    for i, test in enumerate(additional_tests):
         result = find_sum_between_max_min(test)
-        print(f"Тест {i+1}: {test} → Сумма: {result}")
+        print(f"Дополнительный тест {i+1}: {test} → Сумма: {result}")
